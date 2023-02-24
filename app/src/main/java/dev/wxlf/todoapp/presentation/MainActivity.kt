@@ -1,4 +1,4 @@
-package dev.wxlf.todoapp
+package dev.wxlf.todoapp.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,8 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import dev.wxlf.todoapp.ui.theme.TodoAppTheme
+import dagger.hilt.android.AndroidEntryPoint
+import dev.wxlf.todoapp.presentation.theme.TodoAppTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

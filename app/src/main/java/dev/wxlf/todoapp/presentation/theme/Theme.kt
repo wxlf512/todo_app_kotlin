@@ -1,4 +1,4 @@
-package dev.wxlf.todoapp.ui.theme
+package dev.wxlf.todoapp.presentation.theme
 
 import android.app.Activity
 import android.os.Build

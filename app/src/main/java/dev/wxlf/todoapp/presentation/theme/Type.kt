@@ -1,4 +1,4 @@
-package dev.wxlf.todoapp.ui.theme
+package dev.wxlf.todoapp.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
