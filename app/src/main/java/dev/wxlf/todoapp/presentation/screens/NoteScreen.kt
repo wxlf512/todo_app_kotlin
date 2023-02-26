@@ -40,8 +40,8 @@ fun NoteScreen(viewModel: NoteViewModel, navController: NavHostController, id: L
                 Button(onClick = {
                     viewModel.obtainEvent(
                         NoteEvent.SaveNote(
-                            noteName = "newName",
-                            noteData = "new Data"
+                            noteName = "Lorem ipsum dolor sit amet aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            noteData = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadad"
                         )
                     )
                 }) {
