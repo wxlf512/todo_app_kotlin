@@ -2,11 +2,12 @@ package dev.wxlf.todoapp.data.repositories
 
 import dev.wxlf.todoapp.data.datasources.notes.NotesLocalDataSource
 import dev.wxlf.todoapp.data.entities.NoteEntity
+import dev.wxlf.todoapp.data.entities.NoteNameAndData
 import dev.wxlf.todoapp.domain.repository.NotesRepository
 
 class NotesRepositoryImpl(private val local: NotesLocalDataSource) : NotesRepository {
-    override suspend fun addNote(noteName: String, noteData: String) =
-        local.insertNote(noteName, noteData)
+    override suspend fun addNote(noteName: String, noteData: String): Long =
+        local.insertNote(NoteNameAndData(noteName, noteData))
 
     override suspend fun fetchAllNotes(): List<NoteEntity> =
         local.loadAllNotes()

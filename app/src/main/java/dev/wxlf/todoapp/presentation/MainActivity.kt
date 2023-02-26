@@ -1,7 +1,6 @@
 package dev.wxlf.todoapp.presentation
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -26,18 +25,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import dev.wxlf.todoapp.domain.usecases.notes.AddNoteUseCase
+import dev.wxlf.todoapp.presentation.screens.NoteScreen
 import dev.wxlf.todoapp.presentation.screens.NotesScreen
-import dev.wxlf.todoapp.presentation.screens.Routes
+import dev.wxlf.todoapp.presentation.screens.routes.MainRoutes
+import dev.wxlf.todoapp.presentation.screens.routes.NotesRoutes
 import dev.wxlf.todoapp.presentation.theme.TodoAppTheme
+import dev.wxlf.todoapp.presentation.viewmodels.NoteViewModel
 import dev.wxlf.todoapp.presentation.viewmodels.NotesViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -54,7 +55,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val currentRoute =
                     navController.currentBackStackEntryFlow.collectAsState(initial = navController.currentBackStackEntry)
-                val bottomDestinations = listOf(Routes.Notes, Routes.TODO)
+                val bottomDestinations = listOf(MainRoutes.Notes, MainRoutes.TODO)
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -65,8 +66,8 @@ class MainActivity : ComponentActivity() {
                                 TopAppBar(
                                     title = {
                                         when (currentRoute.value?.destination?.route) {
-                                            Routes.Notes.route -> Text(Routes.Notes.label)
-                                            Routes.TODO.route -> Text(Routes.TODO.label)
+                                            MainRoutes.Notes.route -> Text(MainRoutes.Notes.label)
+                                            MainRoutes.TODO.route -> Text(MainRoutes.TODO.label)
                                         }
                                     },
                                     colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -96,17 +97,10 @@ class MainActivity : ComponentActivity() {
                         },
                         floatingActionButton = {
                             when (currentRoute.value?.destination?.route) {
-                                Routes.Notes.route -> {
+                                MainRoutes.Notes.route -> {
                                     FloatingActionButton(
                                         onClick = {
-                                            Toast.makeText(
-                                                this,
-                                                "Add note",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                            GlobalScope.launch(Dispatchers.IO) {
-                                                addNoteUseCase.execute("Note", "Data")
-                                            }
+                                            navController.navigate(NotesRoutes.AddNote.route)
                                         },
                                     ) {
                                         Icon(Icons.Default.Add, contentDescription = "Add note")
@@ -118,22 +112,35 @@ class MainActivity : ComponentActivity() {
                         NavHost(
                             modifier = Modifier.padding(it),
                             navController = navController,
-                            startDestination = Routes.Notes.route
+                            startDestination = MainRoutes.Notes.route
                         ) {
-                            composable(Routes.Notes.route) {
+                            composable(MainRoutes.Notes.route) {
                                 val notesViewModel = hiltViewModel<NotesViewModel>()
                                 NotesScreen(
                                     viewModel = notesViewModel,
                                     navController = navController
                                 )
                             }
-                            composable(Routes.TODO.route) {
+                            composable(MainRoutes.TODO.route) {
                                 Box(modifier = Modifier.fillMaxSize()) {
                                     Text(
                                         "TODO", fontSize = 32.sp, modifier = Modifier
                                             .align(Alignment.Center)
                                     )
                                 }
+                            }
+                            composable(NotesRoutes.AddNote.route) {
+                                val noteViewModel = hiltViewModel<NoteViewModel>()
+                                NoteScreen(viewModel = noteViewModel, navController = navController)
+                            }
+                            composable(NotesRoutes.EditNote.route + "/{id}",
+                                arguments = listOf(navArgument("id") { type = NavType.LongType })) { backStackEntry ->
+                                val noteViewModel = hiltViewModel<NoteViewModel>()
+                                NoteScreen(
+                                    viewModel = noteViewModel,
+                                    navController = navController,
+                                    id = backStackEntry.arguments?.getLong("id")
+                                )
                             }
                         }
                     }

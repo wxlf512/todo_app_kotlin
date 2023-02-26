@@ -1,11 +1,12 @@
 package dev.wxlf.todoapp.data.datasources.notes
 
 import dev.wxlf.todoapp.data.entities.NoteEntity
+import dev.wxlf.todoapp.data.entities.NoteNameAndData
 import dev.wxlf.todoapp.data.room.notes.NotesDao
 
 class NotesRoomDataSource(private val notesDao: NotesDao) : NotesLocalDataSource {
-    override suspend fun insertNote(noteName: String, noteData: String) =
-        notesDao.insertNote(noteName, noteData)
+    override suspend fun insertNote(noteNameAndData: NoteNameAndData): Long =
+        notesDao.insertNote(noteNameAndData)
 
     override suspend fun loadAllNotes(): List<NoteEntity> =
         notesDao.loadAllNotes()

@@ -18,3 +18,8 @@ data class NoteEntity(
         const val NOTES_TABLE = "notes_table"
     }
 }
+
+data class NoteNameAndData(
+    var noteName: String,
+    var noteData: String
+)
