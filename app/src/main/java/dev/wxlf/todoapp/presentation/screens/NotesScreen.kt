@@ -3,6 +3,7 @@ package dev.wxlf.todoapp.presentation.screens
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,7 +28,7 @@ import dev.wxlf.todoapp.presentation.screens.routes.NotesRoutes
 import dev.wxlf.todoapp.presentation.viewmodels.NotesViewModel
 
 @Composable
-fun NotesScreen(viewModel: NotesViewModel, navController: NavHostController) {
+fun NotesScreen(viewModel: NotesViewModel, navController: NavHostController, paddingValues: PaddingValues) {
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(key1 = Unit, block = {
@@ -64,7 +65,7 @@ fun NotesScreen(viewModel: NotesViewModel, navController: NavHostController) {
                     }
                 }
             } else {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
                     notes.forEach {
                         item {
                             NoteElement(

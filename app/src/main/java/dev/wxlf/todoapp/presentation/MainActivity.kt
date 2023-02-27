@@ -3,9 +3,9 @@ package dev.wxlf.todoapp.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,9 +19,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,6 +32,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.wxlf.todoapp.domain.usecases.notes.AddNoteUseCase
 import dev.wxlf.todoapp.presentation.screens.NoteScreen
@@ -56,6 +59,17 @@ class MainActivity : ComponentActivity() {
                 val currentRoute =
                     navController.currentBackStackEntryFlow.collectAsState(initial = navController.currentBackStackEntry)
                 val bottomDestinations = listOf(MainRoutes.Notes, MainRoutes.TODO)
+
+                val systemUiController = rememberSystemUiController()
+                val systemBarColor = Color.Transparent
+                val isDarkMode = isSystemInDarkTheme()
+                SideEffect {
+                    systemUiController.setNavigationBarColor(
+                        color = systemBarColor,
+                        darkIcons = !isDarkMode
+                    )
+                }
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -108,9 +122,8 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
-                    ) {
+                    ) { paddingValues ->
                         NavHost(
-                            modifier = Modifier.padding(it),
                             navController = navController,
                             startDestination = MainRoutes.Notes.route
                         ) {
@@ -118,7 +131,8 @@ class MainActivity : ComponentActivity() {
                                 val notesViewModel = hiltViewModel<NotesViewModel>()
                                 NotesScreen(
                                     viewModel = notesViewModel,
-                                    navController = navController
+                                    navController = navController,
+                                    paddingValues = paddingValues
                                 )
                             }
                             composable(MainRoutes.TODO.route) {
