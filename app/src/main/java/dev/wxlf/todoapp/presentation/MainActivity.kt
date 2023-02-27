@@ -3,6 +3,9 @@ package dev.wxlf.todoapp.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,13 +31,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
-import dev.wxlf.todoapp.domain.usecases.notes.AddNoteUseCase
 import dev.wxlf.todoapp.presentation.screens.NoteScreen
 import dev.wxlf.todoapp.presentation.screens.NotesScreen
 import dev.wxlf.todoapp.presentation.screens.routes.MainRoutes
@@ -42,20 +44,16 @@ import dev.wxlf.todoapp.presentation.screens.routes.NotesRoutes
 import dev.wxlf.todoapp.presentation.theme.TodoAppTheme
 import dev.wxlf.todoapp.presentation.viewmodels.NoteViewModel
 import dev.wxlf.todoapp.presentation.viewmodels.NotesViewModel
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var addNoteUseCase: AddNoteUseCase
-
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TodoAppTheme {
-                val navController = rememberNavController()
+                val navController = rememberAnimatedNavController()
                 val currentRoute =
                     navController.currentBackStackEntryFlow.collectAsState(initial = navController.currentBackStackEntry)
                 val bottomDestinations = listOf(MainRoutes.Notes, MainRoutes.TODO)
@@ -123,7 +121,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     ) { paddingValues ->
-                        NavHost(
+                        AnimatedNavHost(
                             navController = navController,
                             startDestination = MainRoutes.Notes.route
                         ) {
@@ -143,12 +141,37 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                             }
-                            composable(NotesRoutes.AddNote.route) {
+                            composable(NotesRoutes.AddNote.route,
+                                enterTransition = {
+                                    slideIntoContainer(
+                                        AnimatedContentScope.SlideDirection.Up,
+                                        animationSpec = tween(700)
+                                    )
+                                },
+                                exitTransition = {
+                                    slideOutOfContainer(
+                                        AnimatedContentScope.SlideDirection.Down,
+                                        animationSpec = tween(700)
+                                    )
+                                }) {
                                 val noteViewModel = hiltViewModel<NoteViewModel>()
                                 NoteScreen(viewModel = noteViewModel, navController = navController)
                             }
                             composable(NotesRoutes.EditNote.route + "/{id}",
-                                arguments = listOf(navArgument("id") { type = NavType.LongType })) { backStackEntry ->
+                                arguments = listOf(navArgument("id") { type = NavType.LongType }),
+                                enterTransition = {
+                                    slideIntoContainer(
+                                        AnimatedContentScope.SlideDirection.Up,
+                                        animationSpec = tween(700)
+                                    )
+                                },
+                                exitTransition = {
+                                    slideOutOfContainer(
+                                        AnimatedContentScope.SlideDirection.Down,
+                                        animationSpec = tween(700)
+                                    )
+                                }
+                            ) { backStackEntry ->
                                 val noteViewModel = hiltViewModel<NoteViewModel>()
                                 NoteScreen(
                                     viewModel = noteViewModel,
