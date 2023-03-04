@@ -65,14 +65,14 @@ fun NotesScreen(viewModel: NotesViewModel, navController: NavHostController, pad
                     }
                 }
             } else {
-                LazyColumn(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
+                LazyColumn(modifier = Modifier.padding(paddingValues).fillMaxSize().padding(vertical = 4.dp)) {
                     notes.forEach {
                         item {
                             NoteElement(
                                 note = it,
                                 delete = { viewModel.obtainEvent(NotesEvent.DeleteNote(it)) },
                                 modifier = Modifier
-                                    .padding(16.dp)
+                                    .padding(horizontal = 16.dp, vertical = 8.dp)
                                     .fillMaxWidth()
                                     .height(132.dp)
                                     .clickable { navController.navigate(NotesRoutes.EditNote.route + "/${it.id}") })
