@@ -81,7 +81,8 @@ fun NoteElement(
                                 )
                             }
                         )
-                        DropdownMenuItem(text = { Text("Share it") },
+                        DropdownMenuItem(
+                            text = { Text("Share it") },
                             onClick = {
                                 expanded = false
                                 val intent = Intent(ACTION_SEND)
