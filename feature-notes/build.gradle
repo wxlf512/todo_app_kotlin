@@ -1,16 +1,15 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'dev.wxlf.todoapp'
+    namespace 'dev.wxlf.feature_notes'
     compileSdk 33
 
     defaultConfig {
-        applicationId "dev.wxlf.todoapp"
         minSdk 26
         targetSdk 33
         versionCode 1
@@ -19,6 +18,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true"
+                ]
+            }
         }
     }
 
@@ -45,8 +53,6 @@ android {
 }
 
 dependencies {
-
-    implementation project(":feature-notes")
 
     // KTX
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -83,4 +89,10 @@ dependencies {
     def viewModelHiltVersion = "1.0.0"
     implementation "androidx.hilt:hilt-navigation-compose:$viewModelHiltVersion"
     kapt "androidx.hilt:hilt-compiler:$viewModelHiltVersion"
+
+    // Room(SQLite database)
+    def room_version = "2.5.0"
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }
