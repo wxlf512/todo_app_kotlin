@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "todo app"
 include ':app'
 include ':feature-notes'
+include ':feature-tasktable'

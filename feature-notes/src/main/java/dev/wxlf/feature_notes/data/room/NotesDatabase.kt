@@ -1,4 +1,4 @@
-package dev.wxlf.feature_notes.data.room.notes
+package dev.wxlf.feature_notes.data.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

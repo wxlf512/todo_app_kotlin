@@ -5,11 +5,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.wxlf.feature_notes.domain.repository.NotesRepository
-import dev.wxlf.feature_notes.domain.usecases.notes.AddNoteUseCase
-import dev.wxlf.feature_notes.domain.usecases.notes.DeleteNoteUseCase
-import dev.wxlf.feature_notes.domain.usecases.notes.FetchAllNotesUseCase
-import dev.wxlf.feature_notes.domain.usecases.notes.FetchNoteUseCase
-import dev.wxlf.feature_notes.domain.usecases.notes.UpdateNoteUseCase
+import dev.wxlf.feature_notes.domain.usecases.AddNoteUseCase
+import dev.wxlf.feature_notes.domain.usecases.DeleteNoteUseCase
+import dev.wxlf.feature_notes.domain.usecases.FetchAllNotesUseCase
+import dev.wxlf.feature_notes.domain.usecases.FetchNoteUseCase
+import dev.wxlf.feature_notes.domain.usecases.UpdateNoteUseCase
 import javax.inject.Singleton
 
 @Module

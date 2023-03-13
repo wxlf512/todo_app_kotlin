@@ -7,7 +7,6 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -24,11 +23,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -40,9 +37,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.wxlf.feature_notes.presentation.screens.NoteScreen
 import dev.wxlf.feature_notes.presentation.screens.NotesScreen
 import dev.wxlf.feature_notes.presentation.screens.routes.NotesRoutes
-import dev.wxlf.todoapp.ui.theme.TodoAppTheme
 import dev.wxlf.feature_notes.presentation.viewmodels.NoteViewModel
 import dev.wxlf.feature_notes.presentation.viewmodels.NotesViewModel
+import dev.wxlf.feature_tasktable.presentation.screens.TaskTable
+import dev.wxlf.todoapp.ui.theme.TodoAppTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -55,7 +53,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberAnimatedNavController()
                 val currentRoute =
                     navController.currentBackStackEntryFlow.collectAsState(initial = navController.currentBackStackEntry)
-                val bottomDestinations = listOf(MainRoutes.Notes, MainRoutes.TODO)
+                val bottomDestinations = listOf(MainRoutes.Notes, MainRoutes.TaskTable)
 
                 val systemUiController = rememberSystemUiController()
                 val systemBarColor = Color.Transparent
@@ -78,7 +76,7 @@ class MainActivity : ComponentActivity() {
                                     title = {
                                         when (currentRoute.value?.destination?.route) {
                                             MainRoutes.Notes.route -> Text(MainRoutes.Notes.label)
-                                            MainRoutes.TODO.route -> Text(MainRoutes.TODO.label)
+                                            MainRoutes.TaskTable.route -> Text(MainRoutes.TaskTable.label)
                                         }
                                     },
                                     colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -132,13 +130,8 @@ class MainActivity : ComponentActivity() {
                                     paddingValues = paddingValues
                                 )
                             }
-                            composable(MainRoutes.TODO.route) {
-                                Box(modifier = Modifier.fillMaxSize()) {
-                                    Text(
-                                        "TODO", fontSize = 32.sp, modifier = Modifier
-                                            .align(Alignment.Center)
-                                    )
-                                }
+                            composable(MainRoutes.TaskTable.route) {
+                                TaskTable(paddingValues = paddingValues)
                             }
                             composable(NotesRoutes.AddNote.route,
                                 enterTransition = {

@@ -1,8 +1,8 @@
-package dev.wxlf.feature_notes.data.datasources.notes
+package dev.wxlf.feature_notes.data.datasources
 
 import dev.wxlf.feature_notes.data.entities.NoteEntity
 import dev.wxlf.feature_notes.data.entities.NoteNameAndData
-import dev.wxlf.feature_notes.data.room.notes.NotesDao
+import dev.wxlf.feature_notes.data.room.NotesDao
 
 class NotesRoomDataSource(private val notesDao: NotesDao) : NotesLocalDataSource {
     override suspend fun insertNote(noteNameAndData: NoteNameAndData): Long =

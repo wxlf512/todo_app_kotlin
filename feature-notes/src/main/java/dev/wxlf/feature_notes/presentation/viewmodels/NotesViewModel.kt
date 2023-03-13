@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.wxlf.feature_notes.data.entities.NoteEntity
-import dev.wxlf.feature_notes.domain.usecases.notes.DeleteNoteUseCase
-import dev.wxlf.feature_notes.domain.usecases.notes.FetchAllNotesUseCase
+import dev.wxlf.feature_notes.domain.usecases.DeleteNoteUseCase
+import dev.wxlf.feature_notes.domain.usecases.FetchAllNotesUseCase
 import dev.wxlf.feature_notes.presentation.eventstate.notes.NotesEvent
 import dev.wxlf.feature_notes.presentation.eventstate.notes.NotesState
 import kotlinx.coroutines.Dispatchers

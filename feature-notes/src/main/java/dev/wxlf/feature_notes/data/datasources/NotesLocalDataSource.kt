@@ -1,4 +1,4 @@
-package dev.wxlf.feature_notes.data.datasources.notes
+package dev.wxlf.feature_notes.data.datasources
 
 import dev.wxlf.feature_notes.data.entities.NoteEntity
 import dev.wxlf.feature_notes.data.entities.NoteNameAndData

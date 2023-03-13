@@ -1,6 +1,6 @@
 package dev.wxlf.feature_notes.data.repositories
 
-import dev.wxlf.feature_notes.data.datasources.notes.NotesLocalDataSource
+import dev.wxlf.feature_notes.data.datasources.NotesLocalDataSource
 import dev.wxlf.feature_notes.data.entities.NoteEntity
 import dev.wxlf.feature_notes.data.entities.NoteNameAndData
 import dev.wxlf.feature_notes.domain.repository.NotesRepository

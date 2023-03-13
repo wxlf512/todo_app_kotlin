@@ -65,7 +65,7 @@ fun NotesScreen(viewModel: NotesViewModel, navController: NavHostController, pad
                     }
                 }
             } else {
-                LazyColumn(modifier = Modifier.padding(paddingValues).fillMaxSize().padding(vertical = 4.dp)) {
+                LazyColumn(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
                     notes.forEach {
                         item {
                             NoteElement(

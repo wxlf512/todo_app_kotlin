@@ -7,10 +7,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import dev.wxlf.feature_notes.data.datasources.notes.NotesLocalDataSource
-import dev.wxlf.feature_notes.data.datasources.notes.NotesRoomDataSource
+import dev.wxlf.feature_notes.data.datasources.NotesLocalDataSource
+import dev.wxlf.feature_notes.data.datasources.NotesRoomDataSource
 import dev.wxlf.feature_notes.data.repositories.NotesRepositoryImpl
-import dev.wxlf.feature_notes.data.room.notes.NotesDatabase
+import dev.wxlf.feature_notes.data.room.NotesDatabase
 import dev.wxlf.feature_notes.domain.repository.NotesRepository
 import javax.inject.Singleton
 
