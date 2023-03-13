@@ -20,7 +20,7 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideNotesDatabase(@ApplicationContext context: Context) : NotesDatabase =
+    fun provideNotesDatabase(@ApplicationContext context: Context): NotesDatabase =
         Room.databaseBuilder(
             context = context,
             NotesDatabase::class.java,
@@ -29,11 +29,11 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideNotesRoomDataSource(notesDatabase: NotesDatabase) : NotesLocalDataSource =
+    fun provideNotesRoomDataSource(notesDatabase: NotesDatabase): NotesLocalDataSource =
         NotesRoomDataSource(notesDatabase.notesDao())
 
     @Provides
     @Singleton
-    fun provideNotesRepository(local: NotesLocalDataSource) : NotesRepository =
+    fun provideNotesRepository(local: NotesLocalDataSource): NotesRepository =
         NotesRepositoryImpl(local)
 }

@@ -11,8 +11,14 @@ data class NoteEntity(
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "noteName") var noteName: String,
     @ColumnInfo(name = "noteData") var noteData: String,
-    @ColumnInfo(name = "createTimestamp", defaultValue = "CURRENT_TIMESTAMP") val createTimestamp: String,
-    @ColumnInfo(name = "editTimestamp", defaultValue = "CURRENT_TIMESTAMP") var editTimestamp: String,
+    @ColumnInfo(
+        name = "createTimestamp",
+        defaultValue = "CURRENT_TIMESTAMP"
+    ) val createTimestamp: String,
+    @ColumnInfo(
+        name = "editTimestamp",
+        defaultValue = "CURRENT_TIMESTAMP"
+    ) var editTimestamp: String
 ) {
     companion object {
         const val NOTES_TABLE = "notes_table"

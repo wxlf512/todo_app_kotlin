@@ -13,9 +13,6 @@ import dev.wxlf.feature_notes.data.entities.NoteNameAndData
 @Dao
 interface NotesDao {
 
-//    @Query("INSERT INTO $NOTES_TABLE (noteName, noteData) VALUES(:noteName, :noteData)")
-//    suspend fun insertNote(noteName: String, noteData: String)
-
     @Insert(entity = NoteEntity::class)
     suspend fun insertNote(noteNameAndData: NoteNameAndData): Long
 

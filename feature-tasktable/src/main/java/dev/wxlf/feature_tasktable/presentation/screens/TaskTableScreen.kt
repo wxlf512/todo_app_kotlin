@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TaskTable(paddingValues: PaddingValues) {
+fun TaskTableScreen(paddingValues: PaddingValues) {
     Box(modifier = Modifier
         .padding(paddingValues)
         .fillMaxSize()) {

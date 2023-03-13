@@ -39,7 +39,7 @@ import dev.wxlf.feature_notes.presentation.screens.NotesScreen
 import dev.wxlf.feature_notes.presentation.screens.routes.NotesRoutes
 import dev.wxlf.feature_notes.presentation.viewmodels.NoteViewModel
 import dev.wxlf.feature_notes.presentation.viewmodels.NotesViewModel
-import dev.wxlf.feature_tasktable.presentation.screens.TaskTable
+import dev.wxlf.feature_tasktable.presentation.screens.TaskTableScreen
 import dev.wxlf.todoapp.ui.theme.TodoAppTheme
 
 @AndroidEntryPoint
@@ -131,7 +131,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(MainRoutes.TaskTable.route) {
-                                TaskTable(paddingValues = paddingValues)
+                                TaskTableScreen(paddingValues = paddingValues)
                             }
                             composable(NotesRoutes.AddNote.route,
                                 enterTransition = {
