@@ -1,0 +1,98 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "c0f4f207a5a3edfbcfb62276cc17c3d3",
+    "entities": [
+      {
+        "tableName": "columns_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `columnName` TEXT NOT NULL, `columnColor` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "columnName",
+            "columnName": "columnName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "columnColor",
+            "columnName": "columnColor",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tasks_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `taskName` TEXT NOT NULL, `taskData` TEXT NOT NULL, `taskColumnId` INTEGER NOT NULL, `createTimestamp` TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, `editTimestamp` TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taskName",
+            "columnName": "taskName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taskData",
+            "columnName": "taskData",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taskColumnId",
+            "columnName": "taskColumnId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createTimestamp",
+            "columnName": "createTimestamp",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "CURRENT_TIMESTAMP"
+          },
+          {
+            "fieldPath": "editTimestamp",
+            "columnName": "editTimestamp",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "CURRENT_TIMESTAMP"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c0f4f207a5a3edfbcfb62276cc17c3d3')"
+    ]
+  }
+}
