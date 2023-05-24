@@ -2,6 +2,7 @@ package dev.wxlf.feature_notes.presentation.elements
 
 import android.content.Intent
 import android.content.Intent.ACTION_SEND
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +16,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,6 +37,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.os.bundleOf
 import dev.wxlf.feature_notes.R
 import dev.wxlf.feature_notes.data.entities.NoteEntity
+import dev.wxlf.todoapp.ui.theme.TodoAppTheme
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -117,6 +121,26 @@ fun NoteElement(
             val zonedTimestamp =
                 ZonedDateTime.of(timestamp, ZoneId.systemDefault()).format(formatter)
             Text(zonedTimestamp, fontSize = timestampSize, fontWeight = FontWeight.Light)
+        }
+    }
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun NoteElementPreview() {
+    TodoAppTheme {
+        Surface {
+            NoteElement(
+                note = NoteEntity(
+                    1,
+                    "NoteName",
+                    "NoteData",
+                    "2023-05-24 18:09:00",
+                    "2023-05-24 18:09:00"
+                ),
+                modifier = Modifier.height(150.dp).padding(8.dp)
+            ) {}
         }
     }
 }

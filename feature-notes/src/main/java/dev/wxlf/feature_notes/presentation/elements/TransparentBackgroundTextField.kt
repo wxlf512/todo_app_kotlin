@@ -1,10 +1,13 @@
 package dev.wxlf.feature_notes.presentation.elements
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,8 +16,10 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.wxlf.todoapp.ui.theme.TodoAppTheme
 
 @Composable
 fun TransparentBackgroundTextField(
@@ -54,4 +59,22 @@ fun TransparentBackgroundTextField(
         }
     )
 
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun TransparentBackgroundTextFieldPreview() {
+    TodoAppTheme {
+        Surface {
+            TransparentBackgroundTextField(
+                value = "",
+                placeholder = "Note data",
+                onValueChange = {},
+                modifier = Modifier
+                    .height(200.dp)
+                    .padding(8.dp)
+            )
+        }
+    }
 }
